@@ -57,7 +57,7 @@ const Home = () => {
               window.open("https://wa.me/6282195967147", "_blank")
             }
             size="large" variant="solid">
-            Konsultasi Sekarang
+            Konsultasi Sekarang!
           </Button>
         </div>
         <div className="w-full flex lg:flex-row flex-col px-4 gap-y-6">
