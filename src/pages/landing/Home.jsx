@@ -52,7 +52,11 @@ const Home = () => {
               <img className="w-4 h-4 lg:w-6 lg:h-6" src="/icons/education.svg" />
             </div>
           </div>
-          <Button size="large" variant="solid">
+          <Button
+            onClick={() =>
+              window.open("https://wa.me/6282195967147", "_blank")
+            }
+            size="large" variant="solid">
             Konsultasi Sekarang
           </Button>
         </div>
@@ -119,7 +123,11 @@ const Home = () => {
               <br />
               Hubungi Sekarang!
             </span>
-            <Button className="w-fit lg:text-lg lg:p-8" size="large" color="primary" variant="solid" >
+            <Button
+              onClick={() =>
+                window.open("https://wa.me/6282195967147", "_blank")
+              }
+              className="w-fit lg:text-lg lg:p-8" size="large" color="primary" variant="solid" >
               Coba Sekarang
             </Button>
           </div>
@@ -287,7 +295,11 @@ const Home = () => {
               </span>
             </div>
           </div>
-          <Button className="w-fit lg:text-lg lg:p-8" size="large" color="primary" variant="solid" >
+          <Button
+            onClick={() =>
+              window.open("https://wa.me/6282195967147", "_blank")
+            }
+            className="w-fit lg:text-lg lg:p-8" size="large" color="primary" variant="solid" >
             Konsultasi Sekarang
           </Button>
         </div>
