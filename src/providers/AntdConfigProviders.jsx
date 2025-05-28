@@ -9,11 +9,6 @@ export default function AntdConfigProviders({ children }) {
       button={{
         className: styles.customButton
       }}
-      theme={{
-        token: {
-          fontFamily: 'Plus Jakarta Sans'
-        }
-      }}
       drawer={{
         padding: 0
       }}
