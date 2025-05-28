@@ -4,9 +4,35 @@
 
 @layer base {
   @font-face {
-    font-family: 'Plus Jakarta Sans';
-    src: url(assets/font/PlusJakartaSans-Regular.ttf) format('truetype');
+    font-family: 'Bricolage Grotesque';
+    src: url('/assets/fonts/BricolageGrotesque.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
   }
+
+  @font-face {
+    font-family: 'Exo2';
+    src: url('/assets/fonts/Exo2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  .hero-icon {
+    width: 75px;
+    height: 62px;
+  }
+
+  .card-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .features-icon{
+    width: 108px;
+    height: 90px;
+  }
+
+  
+
+
 }

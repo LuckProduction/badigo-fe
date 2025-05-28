@@ -12,6 +12,20 @@ export default function AntdConfigProviders({ children }) {
       drawer={{
         padding: 0
       }}
+      theme={{
+        token: {
+          colorPrimary: '#2A00FF',
+          fontFamily: 'Exo2'
+        },
+        components: {
+          Typography: {
+            fontFamily: 'Bricolage Grotesque'
+          }
+        },
+      }}
+      typography={{
+        fontFamilyCode: 'Bricolage Grotesque'
+      }}
     >
       {children}
     </StyleProvider>
