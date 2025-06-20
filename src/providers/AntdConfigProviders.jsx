@@ -21,7 +21,7 @@ export default function AntdConfigProviders({ children }) {
           Typography: {
             fontFamily: 'Bricolage Grotesque'
           }
-        },
+        }
       }}
       typography={{
         fontFamilyCode: 'Bricolage Grotesque'

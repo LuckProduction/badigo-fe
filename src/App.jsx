@@ -17,9 +17,9 @@ function App() {
             ...landingLink.map(({ path, element: Element }) => ({
               path,
               element: <Element />
-            })),
+            }))
           ]
-        },
+        }
       ])}
     />
   );

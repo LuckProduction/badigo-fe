@@ -1,5 +1,10 @@
-import { Button, Grid, Typography } from "antd"
-import { BiBadgeCheck, BiBriefcase, BiChat, BiCheck, BiChevronsRight, BiGroup, BiLockAlt, BiShoppingBag, BiSolidGraduation, BiSolidUserVoice } from "react-icons/bi";
+import Reveal from '@/components/landing/Reveal';
+import { Button, Grid, Typography } from 'antd';
+import gsap from 'gsap';
+import { useEffect } from 'react';
+import { BiBadgeCheck, BiBriefcase, BiChat, BiCheck, BiChevronsRight, BiGroup, BiLockAlt, BiShoppingBag, BiSolidGraduation, BiSolidUserVoice } from 'react-icons/bi';
+import { useInView } from 'react-intersection-observer';
+import SplitType from 'split-type';
 
 const Home = () => {
   const breakpoints = Grid.useBreakpoint();
@@ -28,300 +33,337 @@ const Home = () => {
     return 10;
   };
 
+  const [ref, inView] = useInView({
+    triggerOnce: true
+  });
+
+  useEffect(() => {
+    if (inView) {
+      const el = document.querySelector('.hero-title');
+      if (!el) return;
+
+      const text = new SplitType(el, { types: 'chars' });
+      const { chars } = text;
+
+      chars.forEach((char) => {
+        char.style.opacity = '0';
+        char.style.display = 'inline-block';
+        char.style.filter = 'blur(10px)';
+        char.style.transform = 'scale(1.2)';
+      });
+
+      el.classList.remove('opacity-0', 'invisible');
+
+      gsap.to(chars, {
+        scale: 1,
+        opacity: 1,
+        filter: 'blur(0px)',
+        stagger: 0.05,
+        duration: 0.6,
+        ease: 'power4.out'
+      });
+
+      return () => {
+        text.revert();
+      };
+    }
+  }, [inView]);
+
   return (
     <>
-      <section id='beranda' className="w-full max-w-screen-2xl mx-auto px-4 lg:px-20 pt-12 lg:pt-24 pb-20 flex flex-col gap-y-12 items-center justify-center ">
-        <div style={{ backgroundImage: `url('/illustration/hero_bg.png')`, backgroundPosition: 'center', backgroundSize: 'cover' }} className=" w-full text-white h-full rounded-lg flex flex-col items-center justify-center gap-y-4 py-20">
-          <Typography.Title style={{ color: '#fff', fontSize: heroTitleResponsive(), margin: 0 }} className="hero-title text-center">
-            Bangkit Digital Gorontalo
-          </Typography.Title>
-          <p className="text-xs lg:text-3xl font-body_type mb-2 max-w-[18rem] lg:max-w-5xl text-center">
-            Memberdayakan UMKM dengan aplikasi mobile inovatif, solusi web, dan pemasaran media digital.
-          </p>
-          <div className="inline-flex items-center gap-x-2 lg:gap-x-4 mb-8">
-            <div className="w-12 h-10 lg:h-16 lg:w-20 bg-navyBlue rounded-[10px] flex items-center justify-center">
-              <img className="w-4 h-4 lg:w-6 lg:h-6" src="/icons/digital_marketing.svg" />
+      <section id="beranda" className="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center gap-y-12 px-4 pb-20 pt-12 lg:px-20 lg:pt-24">
+        <div style={{ backgroundImage: `url('/illustration/hero_bg.png')`, backgroundPosition: 'center', backgroundSize: 'cover' }} className="flex h-full w-full flex-col items-center justify-center gap-y-4 rounded-lg py-20 text-white">
+          <div className="text-center" ref={ref}>
+            <Typography.Title style={{ color: '#fff', fontSize: heroTitleResponsive(), margin: 0 }} className="hero-title invisible opacity-0">
+              Bangkit Digital Gorontalo
+            </Typography.Title>
+          </div>
+          <p className="mb-2 max-w-[18rem] text-center font-body_type text-xs lg:max-w-5xl lg:text-3xl">Memberdayakan UMKM dengan aplikasi mobile inovatif, solusi web, dan pemasaran media digital.</p>
+
+          <div className="mb-8 inline-flex items-center gap-x-2 lg:gap-x-4">
+            <div className="flex h-10 w-12 items-center justify-center rounded-[10px] bg-navyBlue lg:h-16 lg:w-20">
+              <img className="h-4 w-4 lg:h-6 lg:w-6" src="/icons/digital_marketing.svg" />
             </div>
-            <div className="w-12 h-10 lg:h-16 lg:w-20 bg-navyBlue rounded-[10px] flex items-center justify-center">
-              <img className="w-4 h-4 lg:w-6 lg:h-6" src="/icons/digital_operation.svg" />
+            <div className="flex h-10 w-12 items-center justify-center rounded-[10px] bg-navyBlue lg:h-16 lg:w-20">
+              <img className="h-4 w-4 lg:h-6 lg:w-6" src="/icons/digital_operation.svg" />
             </div>
-            <div className="w-12 h-10 lg:h-16 lg:w-20 bg-navyBlue rounded-[10px] flex items-center justify-center">
-              <img className="w-4 h-4 lg:w-6 lg:h-6" src="/icons/digital_media.svg" />
+            <div className="flex h-10 w-12 items-center justify-center rounded-[10px] bg-navyBlue lg:h-16 lg:w-20">
+              <img className="h-4 w-4 lg:h-6 lg:w-6" src="/icons/digital_media.svg" />
             </div>
-            <div className="w-12 h-10 lg:h-16 lg:w-20 bg-navyBlue rounded-[10px] flex items-center justify-center">
-              <img className="w-4 h-4 lg:w-6 lg:h-6" src="/icons/education.svg" />
+            <div className="flex h-10 w-12 items-center justify-center rounded-[10px] bg-navyBlue lg:h-16 lg:w-20">
+              <img className="h-4 w-4 lg:h-6 lg:w-6" src="/icons/education.svg" />
             </div>
           </div>
-          <Button
-            onClick={() =>
-              window.open("https://wa.me/6282195967147", "_blank")
-            }
-            size="large" variant="solid">
+          <Button onClick={() => window.open('https://wa.me/6282195967147', '_blank')} size="large" variant="solid">
             Konsultasi Sekarang
           </Button>
         </div>
-        <div className="w-full flex lg:flex-row flex-col px-4 gap-y-6">
+        <div className="flex w-full flex-col gap-y-6 px-4 lg:flex-row">
           <div className="flex flex-[3]">
-            <p className="font-heading text-3xl  lg:text-5xl">
-              Ingin Bisnis Anda Melejit dengan Teknologi? Temukan Rahasianya <span className="text-navyBlue">BADIGO!</span>
+            <p className="font-heading text-3xl lg:text-5xl">
+              <Reveal>Ingin Bisnis Anda Melejit dengan Teknologi? Temukan Rahasianya</Reveal>
+              <Reveal>
+                <span className="text-navyBlue">BADIGO!</span>
+              </Reveal>
             </p>
           </div>
           <div className="flex flex-[2]">
             <p className="font-body_type text-sm lg:text-xl">
-              Bangkit Digital Gorontalo (BADIGO) adalah mitra transformasi digital  Anda. Kami menawarkan solusi khusus untuk percepatan bisnis, fokus pada  UMKM lokal di Gorontalo dan sekitarnya, dengan visi menghadirkan solusi teknologi digital modern untuk masa depan
+              <Reveal>
+                Bangkit Digital Gorontalo (BADIGO) adalah penyedia Solusi Digital untuk akselerasi bisnis dan perusahaan. BADIGO (Bangkit Digital Gorontalo) lahir dari kebutuhan akan layanan digital yang andal dan integrasi dengan fokus pada
+                pengelolaan media sosial, pembuatan website, serta konsultasi IT, guna mendukung transformasi digital di Gorontalo dan Indonesia secara umum.
+              </Reveal>
             </p>
           </div>
         </div>
       </section>
-      <section id="tentang" className="w-full max-w-screen-2xl mx-auto px-6 lg:px-20 pt-12 lg:pt-24 pb-32 flex flex-col gap-y-12 items-center justify-center ">
-        <Typography.Title level={2} style={{ fontSize: subtitleResponsive() }}>
-          Misi Kami
-        </Typography.Title>
-        <div className="w-full flex flex-col lg:flex-row gap-4 items-center justify-center ">
-          <div className="w-full flex flex-col gap-y-8 bg-white rounded-3xl shadow-xl border border-gray-100  r">
+      <section id="tentang" className="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center gap-y-12 px-6 pb-32 pt-12 lg:px-20 lg:pt-24">
+        <Reveal>
+          <Typography.Title level={2} style={{ fontSize: subtitleResponsive() }}>
+            Misi Kami
+          </Typography.Title>
+        </Reveal>
+        <div className="flex w-full flex-col items-center justify-center gap-4 lg:flex-row">
+          <div className="flex w-full flex-col gap-y-8 rounded-3xl border border-gray-100 bg-white shadow-xl transition-all hover:-translate-y-2">
             <div className="flex items-center gap-x-4 px-8 pt-6">
-              <div className="card-icon bg-navyBlue rounded-[10px] flex items-center justify-center text-white">
+              <div className="card-icon flex items-center justify-center rounded-[10px] bg-navyBlue text-white">
                 <BiSolidUserVoice className="text-3xl" />
               </div>
-              <span className="font-heading text-3xl">Inovasi</span>
+              <Reveal>
+                <span className="font-heading text-3xl">Inovasi</span>
+              </Reveal>
             </div>
             <hr className="border-color-blue-700" />
-            <p className="font-body_type px-8 pb-6 text-sm">Inovasi dalam memberikan Solusi teknologi digital bagi Masyarakat sebagai bagian dari ikut serta dalam membangun sistem teknologi informasi.</p>
+            <p className="px-8 pb-6 font-body_type text-sm">Mendorong inovasi dalam penyediaan solusi teknologi digital sebagai kontribusi aktif dalam pembangunan sistem teknologi informasi di masyarakat.</p>
           </div>
-          <div className="w-full flex flex-col gap-y-8 bg-white rounded-3xl shadow-xl border border-gray-100  r">
+          <div className="flex w-full flex-col gap-y-8 rounded-3xl border border-gray-100 bg-white shadow-xl transition-all hover:-translate-y-2">
             <div className="flex items-center gap-x-4 px-8 pt-6">
-              <div className="card-icon bg-navyBlue rounded-[10px] flex items-center justify-center text-white">
+              <div className="card-icon flex items-center justify-center rounded-[10px] bg-navyBlue text-white">
                 <BiShoppingBag className="text-3xl" />
               </div>
-              <span className="font-heading text-3xl break-words">
-                Pem<wbr />berdayaan
-              </span>
+              <Reveal>
+                <span className="break-words font-heading text-3xl">
+                  Pem
+                  <wbr />
+                  berdayaan
+                </span>
+              </Reveal>
             </div>
             <hr className="border-color-blue-700" />
-            <p className="font-body_type px-8 pb-6 text-sm">Inovasi dalam memberikan Solusi teknologi digital bagi Masyarakat sebagai bagian dari ikut serta dalam membangun sistem teknologi informasi.</p>
+            <p className="px-8 pb-6 font-body_type text-sm">Memberikan dukungan digital bagi individu, komunitas, dan institusi dalam meningkatkan produktivitas, efisiensi, dan nilai strategis melalui layanan teknologi informasi.</p>
           </div>
-          <div className="w-full flex flex-col gap-y-8 bg-white rounded-3xl shadow-xl border border-gray-100  r">
+          <div className="flex w-full flex-col gap-y-8 rounded-3xl border border-gray-100 bg-white shadow-xl transition-all hover:-translate-y-2">
             <div className="flex items-center gap-x-4 px-8 pt-6">
-              <div className="card-icon bg-navyBlue rounded-[10px] flex items-center justify-center text-white">
+              <div className="card-icon flex items-center justify-center rounded-[10px] bg-navyBlue text-white">
                 <BiSolidGraduation className="text-3xl" />
               </div>
-              <span className="font-heading text-3xl">Edukasi</span>
+              <Reveal>
+                <span className="font-heading text-3xl">Edukasi</span>
+              </Reveal>
             </div>
             <hr className="border-color-blue-700" />
-            <p className="font-body_type px-8 pb-6 text-sm">Inovasi dalam memberikan Solusi teknologi digital bagi Masyarakat sebagai bagian dari ikut serta dalam membangun sistem teknologi informasi.</p>
+            <p className="px-8 pb-6 font-body_type text-sm">Meningkatkan literasi digital masyarakat melalui edukasi dan pendampingan agar lebih aktif dan adaptif terhadap perkembangan teknologi.</p>
           </div>
         </div>
       </section>
-      <section id="layanan" className="w-full max-w-screen-2xl mx-auto px-6 lg:px-20 flex  flex-col lg:flex-row gap-y-12  justify-center">
-        <div className="w-full flex flex-[2] relative ">
-          <div className="w-full flex flex-col gap-y-4 items-center lg:items-start">
+      <section id="layanan" className="mx-auto flex w-full max-w-screen-2xl flex-col justify-center gap-y-12 px-6 lg:flex-row lg:px-20">
+        <div className="relative flex w-full flex-[2]">
+          <div className="flex w-full flex-col items-center gap-y-4 lg:items-start">
             <Typography.Title level={2} style={{ margin: 0, fontSize: subtitleResponsive() }} className="text-center lg:text-center">
-              Layanan Kami
+              <Reveal>Layanan Kami</Reveal>
             </Typography.Title>
-            <span className="font-heading text-base lg:text-2xl mb-6 text-center lg:text-left">
-              Tertarik dengan Layanan Kami?
-              <br />
-              Hubungi Sekarang!
-            </span>
-            <Button
-              onClick={() =>
-                window.open("https://wa.me/6282195967147", "_blank")
-              }
-              className="w-fit lg:text-lg lg:p-8" size="large" color="primary" variant="solid" >
+            <Reveal>
+              <span className="mb-6 text-center font-heading text-base lg:text-left lg:text-2xl">
+                Tertarik dengan Layanan Kami?
+                <br />
+                Hubungi Sekarang!
+              </span>
+            </Reveal>
+            <Button onClick={() => window.open('https://wa.me/6282195967147', '_blank')} className="w-fit lg:p-8 lg:text-lg" size="large" color="primary" variant="solid">
               Coba Sekarang
             </Button>
           </div>
-          <img src="illustration/layanan_kami.png" className="absolute hidden lg:block bottom-0" />
+          <img src="illustration/layanan_kami.png" className="absolute bottom-0 hidden lg:block" />
         </div>
-        <div className="w-full flex-[3] grid grid-cols-2 lg:ms-24 gap-x-6 gap-y-2 pb-28">
-          <div className="h-fit col-span-2 lg:col-span-1 w-full flex flex-col gap-y-8 bg-white rounded-3xl shadow-xl border border-gray-100  ">
+        <div className="grid w-full flex-[3] grid-cols-2 gap-x-6 gap-y-2 pb-28 lg:ms-24">
+          <div className="col-span-2 flex h-fit w-full flex-col gap-y-8 rounded-3xl border border-gray-100 bg-white shadow-xl transition-all hover:-translate-y-2 lg:col-span-1">
             <div className="flex items-center gap-x-4 px-8 pt-6">
-              <div className="card-icon bg-navyBlue rounded-[10px] flex items-center justify-center text-white">
-                <img className="w-6 h-6" src="/icons/digital_marketing.svg" />
+              <div className="card-icon flex items-center justify-center rounded-[10px] bg-navyBlue text-white">
+                <img className="h-6 w-6" src="/icons/digital_marketing.svg" />
               </div>
-              <span className="font-heading text-lg lg:text-3xl">Digital Marketing</span>
+              <Reveal>
+                <span className="font-heading text-lg lg:text-3xl">Digital Marketing</span>
+              </Reveal>
             </div>
             <hr className="border-color-blue-700" />
-            <p className="font-body_type px-8 pb-6 text-sm">Inovasi dalam memberikan Solusi teknologi digital bagi Masyarakat sebagai bagian dari ikut serta dalam membangun sistem teknologi informasi.</p>
+            <p className="px-8 pb-6 font-body_type text-sm">Inovasi dalam memberikan Solusi teknologi digital bagi Masyarakat sebagai bagian dari ikut serta dalam membangun sistem teknologi informasi.</p>
           </div>
-          <div className="lg:mt-12 h-fit col-span-2 lg:col-span-1 w-full flex flex-col gap-y-8 bg-white rounded-3xl shadow-xl border border-gray-100  r">
+          <div className="col-span-2 flex h-fit w-full flex-col gap-y-8 rounded-3xl border border-gray-100 bg-white shadow-xl transition-all hover:-translate-y-2 lg:col-span-1 lg:mt-12">
             <div className="flex items-center gap-x-4 px-8 pt-6">
-              <div className="card-icon bg-navyBlue rounded-[10px] flex items-center justify-center text-white">
-                <img className="w-6 h-6" src="/icons/digital_media.svg" />
+              <div className="card-icon flex items-center justify-center rounded-[10px] bg-navyBlue text-white">
+                <img className="h-6 w-6" src="/icons/digital_media.svg" />
               </div>
-              <span className="font-heading text-lg lg:text-3xl">Digital Media</span>
+              <Reveal>
+                <span className="font-heading text-lg lg:text-3xl">Digital Media</span>
+              </Reveal>
             </div>
             <hr className="border-color-blue-700" />
-            <p className="font-body_type px-8 pb-6 text-sm">Inovasi dalam memberikan Solusi teknologi digital bagi Masyarakat sebagai bagian dari ikut serta dalam membangun sistem teknologi informasi.</p>
+            <p className="px-8 pb-6 font-body_type text-sm">Inovasi dalam memberikan Solusi teknologi digital bagi Masyarakat sebagai bagian dari ikut serta dalam membangun sistem teknologi informasi.</p>
           </div>
-          <div className="h-fit col-span-2 lg:col-span-1  w-full flex flex-col gap-y-8 bg-white rounded-3xl shadow-xl border border-gray-100  r">
+          <div className="col-span-2 flex h-fit w-full flex-col gap-y-8 rounded-3xl border border-gray-100 bg-white shadow-xl transition-all hover:-translate-y-2 lg:col-span-1">
             <div className="flex items-center gap-x-4 px-8 pt-6">
-              <div className="card-icon bg-navyBlue rounded-[10px] flex items-center justify-center text-white">
-                <img className="w-6 h-6" src="/icons/digital_operation.svg" />
+              <div className="card-icon flex items-center justify-center rounded-[10px] bg-navyBlue text-white">
+                <img className="h-6 w-6" src="/icons/digital_operation.svg" />
               </div>
-              <span className="font-heading text-lg lg:text-3xl">Digital Operation</span>
+              <Reveal>
+                <span className="font-heading text-lg lg:text-3xl">Digital Operation</span>
+              </Reveal>
             </div>
             <hr className="border-color-blue-700" />
-            <p className="font-body_type px-8 pb-6 text-sm">Inovasi dalam memberikan Solusi teknologi digital bagi Masyarakat sebagai bagian dari ikut serta dalam membangun sistem teknologi informasi.</p>
+            <p className="px-8 pb-6 font-body_type text-sm">Inovasi dalam memberikan Solusi teknologi digital bagi Masyarakat sebagai bagian dari ikut serta dalam membangun sistem teknologi informasi.</p>
           </div>
-          <div className="lg:mt-12 h-fit col-span-2 lg:col-span-1 w-full flex flex-col gap-y-8 bg-white rounded-3xl shadow-xl border border-gray-100  r">
+          <div className="col-span-2 flex h-fit w-full flex-col gap-y-8 rounded-3xl border border-gray-100 bg-white shadow-xl transition-all hover:-translate-y-2 lg:col-span-1 lg:mt-12">
             <div className="flex items-center gap-x-4 px-8 pt-6">
-              <div className="card-icon bg-navyBlue rounded-[10px] flex items-center justify-center text-white">
-                <img className="w-6 h-6" src="/icons/education.svg" />
+              <div className="card-icon flex items-center justify-center rounded-[10px] bg-navyBlue text-white">
+                <img className="h-6 w-6" src="/icons/education.svg" />
               </div>
-              <span className="font-heading text-lg lg:text-3xl">Digital Learning</span>
+              <Reveal>
+                <span className="font-heading text-lg lg:text-3xl">Digital Learning</span>
+              </Reveal>
             </div>
             <hr className="border-color-blue-700" />
-            <p className="font-body_type px-8 pb-6 text-sm">Inovasi dalam memberikan Solusi teknologi digital bagi Masyarakat sebagai bagian dari ikut serta dalam membangun sistem teknologi informasi.</p>
+            <p className="px-8 pb-6 font-body_type text-sm">Inovasi dalam memberikan Solusi teknologi digital bagi Masyarakat sebagai bagian dari ikut serta dalam membangun sistem teknologi informasi.</p>
           </div>
         </div>
       </section>
-      <section style={{ backgroundImage: `url('/illustration/hero_bg.png')`, backgroundPosition: 'center', backgroundSize: 'cover' }} >
-        <div className="w-full max-w-screen-2xl mx-auto px-8 lg:px-32 py-24 flex flex-col gap-y-12 justify-center items-center">
+      <section style={{ backgroundImage: `url('/illustration/hero_bg.png')`, backgroundPosition: 'center', backgroundSize: 'cover' }}>
+        <div className="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center gap-y-12 px-8 py-24 lg:px-32">
           <Typography.Title level={2} style={{ fontSize: smallSubtitleResponsive, color: '#fff' }} className="text-center">
-            Kenapa Pilih BADIGO?
+            <Reveal color="#fff">Kenapa Pilih BADIGO?</Reveal>
           </Typography.Title>
-          <div className="flex flex-wrap gap-6 lg:gap-12 items-center justify-center">
-            <div className="flex items-center p-5 bg-white rounded-sm gap-x-4 lg:gap-x-10 flex-grow">
-              <div className="w-20 h-16 lg:w-28 lg:h-24 bg-[#DDEEFF] rounded-[10px] flex items-center justify-center text-[#1C4DFF]">
+          <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-12">
+            <div className="flex flex-grow-0 items-center gap-x-4 rounded-sm bg-white p-5 sm:flex-grow md:flex-grow lg:flex-grow-0 lg:gap-x-10">
+              <div className="flex h-16 w-20 items-center justify-center rounded-[10px] bg-[#DDEEFF] text-[#1C4DFF] lg:h-24 lg:w-28">
                 <BiBriefcase className="text-3xl lg:text-6xl" />
               </div>
               <div className="flex flex-col gap-y-1">
-                <span className="font-heading text-lg lg:text-3xl">
-                  Inovatif
-                </span>
-                <p className="max-w-sm font-body_type text-xs lg:text-sm">
-                  Menciptakan ide baru, produk berteknologi terbaik untuk nilai tambah, keamanan, dan skalabilitas pelanggan.
-                </p>
+                <Reveal>
+                  <span className="font-heading text-lg lg:text-3xl">Inovatif</span>
+                </Reveal>
+                <p className="max-w-sm font-body_type text-xs lg:text-sm">Menciptakan ide baru, produk berteknologi terbaik untuk nilai tambah, keamanan, dan skalabilitas pelanggan.</p>
               </div>
             </div>
-            <div className="flex items-center p-5 bg-white rounded-sm gap-x-4 lg:gap-x-10 flex-grow">
-              <div className="w-20 h-16 lg:w-28 lg:h-24 bg-[#FFE5CC] rounded-[10px] flex items-center justify-center text-[#FF952C]">
+            <div className="flex flex-grow-0 items-center gap-x-4 rounded-sm bg-white p-5 sm:flex-grow md:flex-grow lg:flex-grow-0 lg:gap-x-10">
+              <div className="flex h-16 w-20 items-center justify-center rounded-[10px] bg-[#FFE5CC] text-[#FF952C] lg:h-24 lg:w-28">
                 <BiBadgeCheck className="text-3xl lg:text-6xl" />
               </div>
               <div className="flex flex-col gap-y-1">
-                <span className="font-heading text-lg lg:text-3xl">
-                  Profesional
-                </span>
-                <p className="max-w-sm font-body_type text-xs lg:text-sm">
-                  Prioritaskan kebutuhan pengguna dengan pendekatan berbasis data untuk memahami perilaku mereka.
-                </p>
+                <Reveal>
+                  <span className="font-heading text-lg lg:text-3xl">Profesional</span>
+                </Reveal>
+                <p className="max-w-sm font-body_type text-xs lg:text-sm">Prioritaskan kebutuhan pengguna dengan pendekatan berbasis data untuk memahami perilaku mereka.</p>
               </div>
             </div>
-            <div className="flex items-center p-5 bg-white rounded-sm gap-x-4 lg:gap-x-10 flex-grow">
-              <div className="w-20 h-16 lg:w-28 lg:h-24 bg-[#D0FFDC] rounded-[10px] flex items-center justify-center text-[#34C759]">
+            <div className="flex flex-grow-0 items-center gap-x-4 rounded-sm bg-white p-5 sm:flex-grow md:flex-grow lg:flex-grow-0 lg:gap-x-10">
+              <div className="flex h-16 w-20 items-center justify-center rounded-[10px] bg-[#D0FFDC] text-[#34C759] lg:h-24 lg:w-28">
                 <BiGroup className="text-3xl lg:text-6xl" />
               </div>
               <div className="flex flex-col gap-y-1">
-                <span className="font-heading text-lg lg:text-3xl">
-                  Kolaboratif
-                </span>
-                <p className="max-w-sm font-body_type text-xs lg:text-sm">
-                  Mendorong kerja sama tim lintas disiplin dan hubungan dengan mitra strategis untuk tujuan bersama.
-                </p>
+                <Reveal>
+                  <span className="font-heading text-lg lg:text-3xl">Kolaboratif</span>
+                </Reveal>
+                <p className="max-w-sm font-body_type text-xs lg:text-sm">Mendorong kerja sama tim lintas disiplin dan hubungan dengan mitra strategis untuk tujuan bersama.</p>
               </div>
             </div>
-            <div className="flex items-center p-5 bg-white rounded-sm gap-x-4 lg:gap-x-10 flex-grow">
-              <div className="w-20 h-16 lg:w-28 lg:h-24 bg-[#BCDFFF] rounded-[10px] flex items-center justify-center text-[#233E57]">
+            <div className="flex flex-grow-0 items-center gap-x-4 rounded-sm bg-white p-5 sm:flex-grow md:flex-grow lg:flex-grow-0 lg:gap-x-10">
+              <div className="flex h-16 w-20 items-center justify-center rounded-[10px] bg-[#BCDFFF] text-[#233E57] lg:h-24 lg:w-28">
                 <BiLockAlt className="text-3xl lg:text-6xl" />
               </div>
               <div className="flex flex-col gap-y-1">
-                <span className="font-heading text-lg lg:text-3xl">
-                  Integritas
-                </span>
-                <p className="max-w-sm font-body_type text-xs lg:text-sm">
-                  Mengutamakan kejujuran dalam komunikasi dan mengelola data pelanggan secara etis sesuai peraturan.
-                </p>
+                <Reveal>
+                  <span className="font-heading text-lg lg:text-3xl">Integritas</span>
+                </Reveal>
+                <p className="max-w-sm font-body_type text-xs lg:text-sm">Mengutamakan kejujuran dalam komunikasi dan mengelola data pelanggan secara etis sesuai peraturan.</p>
               </div>
             </div>
-            <div className="flex items-center p-5 bg-white rounded-sm gap-x-4 lg:gap-x-10 flex-grow">
-              <div className="w-20 h-16 lg:w-28 lg:h-24 bg-[#FFFFD5] rounded-[10px] flex items-center justify-center text-[#FFD900]">
+            <div className="flex flex-grow-0 items-center gap-x-4 rounded-sm bg-white p-5 sm:flex-grow md:flex-grow lg:flex-grow-0 lg:gap-x-10">
+              <div className="flex h-16 w-20 items-center justify-center rounded-[10px] bg-[#FFFFD5] text-[#FFD900] lg:h-24 lg:w-28">
                 <BiChevronsRight className="text-3xl lg:text-6xl" />
               </div>
               <div className="flex flex-col gap-y-1">
-                <span className="font-heading text-lg lg:text-3xl">
-                  Keberlanjutan
-                </span>
-                <p className="max-w-sm font-body_type text-xs lg:text-sm">
-                  Dorong keterampilan tim, respons pasar cepat, dan pelatihan teknologi untuk relevansi industri.
-                </p>
+                <Reveal>
+                  <span className="font-heading text-lg lg:text-3xl">Keberlanjutan</span>
+                </Reveal>
+                <p className="max-w-sm font-body_type text-xs lg:text-sm">Dorong keterampilan tim, respons pasar cepat, dan pelatihan teknologi untuk relevansi industri.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <section id="kontak" className="w-full max-w-screen-2xl mx-auto px-8 lg:px-32 py-24 flex flex-col lg:flex-row justify-center gap-x-24 gap-y-12">
-        <div className="flex flex-col flex-1 gap-y-2">
-          <span className="font-heading text-[#2401D6] text-xl lg:text-2xl">
-            Hubungi Kami Sekarang
-          </span>
+      <section id="kontak" className="mx-auto flex w-full max-w-screen-2xl flex-col justify-center gap-x-24 gap-y-12 px-8 py-24 lg:flex-row lg:px-32">
+        <div className="flex flex-1 flex-col gap-y-2">
+          <span className="font-heading text-xl text-[#2401D6] lg:text-2xl">Hubungi Kami Sekarang</span>
           <Typography.Title style={{ margin: 0, fontSize: subtitleResponsive() }}>
-            Konsultasi Kebutuhan Digital Anda Dengan Kami
+            <Reveal>Konsultasi</Reveal>
+            <Reveal>Kebutuhan Digital</Reveal>
+            <Reveal>Anda Dengan Kami</Reveal>
           </Typography.Title>
-          <p className="font-body_type text-sm lg:text-base">
-            Tim kami siap mendengarkan kebutuhan digital Anda dan memberikan solusi terbaik. Berkolaborasi untuk masa depan digital bersama BADIGO!
-          </p>
-          <div className="flex flex-col gap-y-4 mt-6 mb-12">
+          <p className="font-body_type text-sm lg:text-base">Tim kami siap mendengarkan kebutuhan digital Anda dan memberikan solusi terbaik. Berkolaborasi untuk masa depan digital bersama BADIGO!</p>
+          <div className="mb-12 mt-6 flex flex-col gap-y-4">
             <div className="flex items-center gap-x-4">
-              <div className="w-4 h-4 lg:w-8 lg:h-8 bg-[#2401D6] rounded-full flex items-center justify-center text-white">
+              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[#2401D6] text-white lg:h-8 lg:w-8">
                 <BiCheck className="text-lg lg:text-2xl" />
               </div>
-              <span className="font-body_type text-xs lg:text-base">
-                Konsultasi disesuaikan dengan kebutuhan bisnis.
-              </span>
+              <Reveal>
+                <span className="font-body_type text-xs lg:text-base">Konsultasi disesuaikan dengan kebutuhan bisnis.</span>
+              </Reveal>
             </div>
             <div className="flex items-center gap-x-4">
-              <div className="w-4 h-4 lg:w-8 lg:h-8 bg-[#2401D6] rounded-full flex items-center justify-center text-white">
+              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[#2401D6] text-white lg:h-8 lg:w-8">
                 <BiCheck className="text-lg lg:text-2xl" />
               </div>
-              <span className="font-body_type text-xs lg:text-base">
-                Didukung oleh ahli digital lokal Gorontalo.
-              </span>
+              <Reveal>
+                <span className="font-body_type text-xs lg:text-base">Didukung oleh ahli digital lokal Gorontalo.</span>
+              </Reveal>
             </div>
             <div className="flex items-center gap-x-4">
-              <div className="w-4 h-4 lg:w-8 lg:h-8 bg-[#2401D6] rounded-full flex items-center justify-center text-white">
+              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[#2401D6] text-white lg:h-8 lg:w-8">
                 <BiCheck className="text-lg lg:text-2xl" />
               </div>
-              <span className="font-body_type text-xs lg:text-base">
-                Strategi yang efektif untuk pertumbuhan bisnis .
-              </span>
+              <Reveal>
+                <span className="font-body_type text-xs lg:text-base">Strategi yang efektif untuk pertumbuhan bisnis .</span>
+              </Reveal>
             </div>
             <div className="flex items-center gap-x-4">
-              <div className="w-4 h-4 lg:w-8 lg:h-8 bg-[#2401D6] rounded-full flex items-center justify-center text-white">
+              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[#2401D6] text-white lg:h-8 lg:w-8">
                 <BiCheck className="text-lg lg:text-2xl" />
               </div>
-              <span className="font-body_type text-xs lg:text-base">
-                Dukungan berkelanjutan hingga bisnis bertumbuh,
-              </span>
+              <Reveal>
+                <span className="font-body_type text-xs lg:text-base">Dukungan berkelanjutan hingga bisnis bertumbuh,</span>
+              </Reveal>
             </div>
           </div>
-          <Button
-            onClick={() =>
-              window.open("https://wa.me/6282195967147", "_blank")
-            }
-            className="w-fit lg:text-lg lg:p-8" size="large" color="primary" variant="solid" >
+          <Button onClick={() => window.open('https://wa.me/6282195967147', '_blank')} className="w-fit lg:p-8 lg:text-lg" size="large" color="primary" variant="solid">
             Konsultasi Sekarang
           </Button>
         </div>
-        <div className="flex flex-col flex-1">
-          <span className="font-heading text-2xl lg:text-4xl mb-6">
-            Cara Kami Bekerja
-          </span>
-          <div className="flex flex-col gap-y-4 ">
-            <div className="inline-flex items-center p-6 bg-white gap-x-6 border border-gray-100 shadow-md rounded-sm">
-              <div className="border-2 border-[#34C759] rounded-full">
-                <div className="w-10 h-10 lg:w-16 lg:h-16 flex items-center justify-center border-4 border-[#D0FFDC] bg-[#34C759] text-white rounded-full">
+        <div className="flex flex-1 flex-col">
+          <span className="mb-6 font-heading text-2xl lg:text-4xl">Cara Kami Bekerja</span>
+          <div className="flex flex-col gap-y-4">
+            <div className="inline-flex items-center gap-x-6 rounded-sm border border-gray-100 bg-white p-6 shadow-md">
+              <div className="rounded-full border-2 border-[#34C759]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border-4 border-[#D0FFDC] bg-[#34C759] text-white lg:h-16 lg:w-16">
                   <BiChat className="text-lg lg:text-3xl" />
                 </div>
               </div>
-              <dib>
+              <div>
                 <span className="font-heading text-lg lg:text-xl">Konsultasi</span>
                 <p className="font-body_type text-sm lg:text-base">Ceritakan kebutuhan digital Anda kepada tim kami untuk solusi yang tepat.</p>
-              </dib>
+              </div>
             </div>
-            <div className="inline-flex items-center p-6 bg-white gap-x-6 border border-gray-100 shadow-md rounded-sm">
-              <div className="border-2 border-[#F4C91D] rounded-full">
-                <div className="w-10 h-10 lg:w-16 lg:h-16 flex items-center justify-center border-4 border-[#FFF0B5] bg-[#F4C91D] text-white rounded-full">
+            <div className="inline-flex items-center gap-x-6 rounded-sm border border-gray-100 bg-white p-6 shadow-md">
+              <div className="rounded-full border-2 border-[#F4C91D]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border-4 border-[#FFF0B5] bg-[#F4C91D] text-white lg:h-16 lg:w-16">
                   <BiChat className="text-lg lg:text-3xl" />
                 </div>
               </div>
@@ -330,9 +372,9 @@ const Home = () => {
                 <p className="font-body_type text-sm lg:text-base">Diskusikan detail proyek dan biaya yang sesuai dengan anggaran Anda.</p>
               </dib>
             </div>
-            <div className="inline-flex items-center p-6 bg-white gap-x-6 border border-gray-100 shadow-md rounded-sm">
-              <div className="border-2 border-[#0084FF] rounded-full">
-                <div className="w-10 h-10 lg:w-16 lg:h-16 flex items-center justify-center border-4 border-[#7DC0FF] bg-[#0084FF] text-white rounded-full">
+            <div className="inline-flex items-center gap-x-6 rounded-sm border border-gray-100 bg-white p-6 shadow-md">
+              <div className="rounded-full border-2 border-[#0084FF]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border-4 border-[#7DC0FF] bg-[#0084FF] text-white lg:h-16 lg:w-16">
                   <BiChat className="text-lg lg:text-3xl" />
                 </div>
               </div>
@@ -344,25 +386,27 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="w-full max-w-screen-2xl mx-auto px-8 lg:px-20 pt-24 pb-32 flex flex-col gap-y-12 items-center justify-center ">
-        <Typography.Title level={2} style={{ fontSize: subtitleResponsive() }}>
-          Produk Kami
-        </Typography.Title>
-        <div className="w-full grid grid-cols-3">
-          <div className="col-span-3 lg:col-span-1 p-4 inline-flex gap-x-4 bg-white border border-t-gray-100 rounded-sm shadow-lg">
-            <div className="w-full h-full flex-[1]">
+      <section className="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center gap-y-12 px-8 pb-32 pt-24 lg:px-20">
+        <Reveal>
+          <Typography.Title level={2} style={{ fontSize: subtitleResponsive() }}>
+            Produk Kami
+          </Typography.Title>
+        </Reveal>
+
+        <div className="grid w-full grid-cols-3">
+          <div className="col-span-3 inline-flex gap-x-4 rounded-sm border border-t-gray-100 bg-white p-4 shadow-lg lg:col-span-1">
+            <div className="h-full w-full flex-[1]">
               <img src="/govillage.png" className="h-full w-full rounded-sm object-cover" />
             </div>
-            <div className="flex flex-col gap-y-2 flex-[2]">
+            <div className="flex flex-[2] flex-col gap-y-2">
               <span className="font-heading text-lg lg:text-2xl">GoVillage</span>
-              <p className="text-xs lg:text-sm font-body_type">Sistem informasi desa untuk layanan mudah seperti Permohonan Surat, Lapor Penduduk, Pengaduan, dan Lapak BumDes, dengan akses digital.</p>
+              <p className="font-body_type text-xs lg:text-sm">Sistem informasi desa untuk layanan mudah seperti Permohonan Surat, Lapor Penduduk, Pengaduan, dan Lapak BumDes, dengan akses digital.</p>
             </div>
           </div>
         </div>
       </section>
     </>
+  );
+};
 
-  )
-}
-
-export default Home
+export default Home;
