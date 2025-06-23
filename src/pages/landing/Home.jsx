@@ -78,7 +78,7 @@ const Home = () => {
               Bangkit Digital Gorontalo
             </Typography.Title>
           </div>
-          <p className="mb-2 max-w-[18rem] text-center font-body_type text-xs lg:max-w-5xl lg:text-3xl">Memberdayakan UMKM dengan aplikasi mobile inovatif, solusi web, dan pemasaran media digital.</p>
+          <p className="mb-2 max-w-[18rem] text-center font-body_type text-xs lg:max-w-5xl lg:text-3xl">Wujudkan potensi penuh bisnis Anda di era digital. Mari berkolaborasi untuk mencapai tujuan bersama!</p>
 
           <div className="mb-8 inline-flex items-center gap-x-2 lg:gap-x-4">
             <div className="flex h-10 w-12 items-center justify-center rounded-[10px] bg-navyBlue lg:h-16 lg:w-20">
@@ -196,7 +196,7 @@ const Home = () => {
               </Reveal>
             </div>
             <hr className="border-color-blue-700" />
-            <p className="px-8 pb-6 font-body_type text-sm">Inovasi dalam memberikan Solusi teknologi digital bagi Masyarakat sebagai bagian dari ikut serta dalam membangun sistem teknologi informasi.</p>
+            <p className="px-8 pb-6 font-body_type text-sm">Membangun keterlibatan audiens melalui platform digital dan alat seperti SEO, iklan, dan analitik untuk menarik, meyakinkan, dan mempertahankan pelanggan.</p>
           </div>
           <div className="col-span-2 flex h-fit w-full flex-col gap-y-8 rounded-3xl border border-gray-100 bg-white shadow-xl transition-all hover:-translate-y-2 lg:col-span-1 lg:mt-12">
             <div className="flex items-center gap-x-4 px-8 pt-6">
@@ -204,11 +204,11 @@ const Home = () => {
                 <img className="h-6 w-6" src="/icons/digital_media.svg" />
               </div>
               <Reveal>
-                <span className="font-heading text-lg lg:text-3xl">Digital Media</span>
+                <span className="font-heading text-lg lg:text-3xl">Creative Studio</span>
               </Reveal>
             </div>
             <hr className="border-color-blue-700" />
-            <p className="px-8 pb-6 font-body_type text-sm">Inovasi dalam memberikan Solusi teknologi digital bagi Masyarakat sebagai bagian dari ikut serta dalam membangun sistem teknologi informasi.</p>
+            <p className="px-8 pb-6 font-body_type text-sm">Pembuatan dan publikasi konten digital untuk pemasaran, seperti foto, video, animasi, dan desain yang digunakan dalam katalog, iklan, blog, buletin, dan media digital lainnya.</p>
           </div>
           <div className="col-span-2 flex h-fit w-full flex-col gap-y-8 rounded-3xl border border-gray-100 bg-white shadow-xl transition-all hover:-translate-y-2 lg:col-span-1">
             <div className="flex items-center gap-x-4 px-8 pt-6">
@@ -216,11 +216,11 @@ const Home = () => {
                 <img className="h-6 w-6" src="/icons/digital_operation.svg" />
               </div>
               <Reveal>
-                <span className="font-heading text-lg lg:text-3xl">Digital Operation</span>
+                <span className="font-heading text-lg lg:text-3xl">Smart Enterpirse Solution</span>
               </Reveal>
             </div>
             <hr className="border-color-blue-700" />
-            <p className="px-8 pb-6 font-body_type text-sm">Inovasi dalam memberikan Solusi teknologi digital bagi Masyarakat sebagai bagian dari ikut serta dalam membangun sistem teknologi informasi.</p>
+            <p className="px-8 pb-6 font-body_type text-sm">Pemanfaatan perangkat pintar, sensor, dan platform terintegrasi untuk meningkatkan visibilitas, respons cepat, dan pengambilan keputusan cerdas dalam proses produksi.</p>
           </div>
           <div className="col-span-2 flex h-fit w-full flex-col gap-y-8 rounded-3xl border border-gray-100 bg-white shadow-xl transition-all hover:-translate-y-2 lg:col-span-1 lg:mt-12">
             <div className="flex items-center gap-x-4 px-8 pt-6">
@@ -232,7 +232,7 @@ const Home = () => {
               </Reveal>
             </div>
             <hr className="border-color-blue-700" />
-            <p className="px-8 pb-6 font-body_type text-sm">Inovasi dalam memberikan Solusi teknologi digital bagi Masyarakat sebagai bagian dari ikut serta dalam membangun sistem teknologi informasi.</p>
+            <p className="px-8 pb-6 font-body_type text-sm">Penggunaan perangkat pintar, sensor, dan platform terintegrasi untuk visibilitas real-time, respons cepat, dan keputusan cerdas dalam produksi.</p>
           </div>
         </div>
       </section>
