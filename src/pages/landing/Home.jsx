@@ -399,7 +399,9 @@ const Home = () => {
               <img src="/govillage.png" className="h-full w-full rounded-sm object-cover" />
             </div>
             <div className="flex flex-[2] flex-col gap-y-2">
-              <span className="font-heading text-lg lg:text-2xl">GoVillage</span>
+              <a href="https://demo.go-village.id/" target="_blank" rel="noopener noreferrer" className="font-heading text-lg underline lg:text-2xl">
+                GoVillage
+              </a>
               <p className="font-body_type text-xs lg:text-sm">Sistem informasi desa untuk layanan mudah seperti Permohonan Surat, Lapor Penduduk, Pengaduan, dan Lapak BumDes, dengan akses digital.</p>
             </div>
           </div>
